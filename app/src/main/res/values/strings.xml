@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">BIS</string>
+    <string name="title_activity_main_activity">Bedside Identification System</string>
+    <string name="add_patient">Add patient</string>
+    <string name="list_of_patients">List of patients</string>
+    <string name="identify_patient">Identify patient</string>
+    <string name="add_patient_info">Add patient information here, those need to include full name and image taken from the front</string>
+    <string name="patient_name">Patient full name</string>
+    <string name="patient_description">Add here any notes related to the patient</string>
+    <string name="add_button_text">Add</string>
+
 </resources>

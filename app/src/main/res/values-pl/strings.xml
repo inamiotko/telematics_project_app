@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">SPIP</string>
+    <string name="title_activity_main_activity">System Przyłóżkowej Identyfikacji Pacjenta</string>
+    <string name="add_patient">Dodaj pacjenta</string>
+    <string name="list_of_patients">Lista pacjentów</string>
+    <string name="identify_patient">Zidetyfikuj pacjenta</string>
+    <string name="add_patient_info">Dodaj dane pacjenta tutaj, uwzględniając imię nazwisko oraz zdjęcie zrobione z przodu</string>
+    <string name="patient_name">Pełne imie pacjenta</string>
+    <string name="patient_description">Dodaj tutaj wszystkie informacje związane z pacjentem</string>
+    <string name="add_button_text">Dodaj</string>
+
 </resources>

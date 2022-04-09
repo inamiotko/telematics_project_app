@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.telematics_project">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
     <application
         android:name="com.example.telematics_project.TelematicsProjectApplication"
         android:allowBackup="true"
@@ -11,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Projekt_telemedycyna">
         <activity
-            android:name="com.example.telematics_project.ui.MainActivity"
+            android:name="com.example.telematics_project.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

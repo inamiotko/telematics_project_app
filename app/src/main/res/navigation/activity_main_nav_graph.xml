@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main_nav_graph"
+    app:startDestination="@id/mainViewFragment">
+
+    <fragment
+        android:id="@+id/mainViewFragment"
+        android:name="com.example.telematics_project.ui.MainViewFragment"
+        android:label="@string/add_patient" />
+    <fragment
+        android:id="@+id/cameraViewFragment"
+        android:name="com.example.telematics_project.ui.CameraViewFragment"
+        android:label="@string/identify_patient" />
+    <fragment
+        android:id="@+id/listViewFragment"
+        android:name="com.example.telematics_project.ui.ListViewFragment"
+        android:label="@string/list_of_patients" />
+</navigation>

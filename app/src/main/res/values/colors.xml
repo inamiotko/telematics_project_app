@@ -1,10 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#ffffff</color>
+    <color name="rippleOnPrimary">#26ffffff</color>
+    <color name="colorSecondary">#80070707</color>
+    <color name="colorAccent">#009897</color>
+    <color name="rippleOnAccent">#26009897</color>
+    <color name="colorLightText">#ffffff</color>
+
+    <color name="colorLightHintText">#CCffffff</color>
+    <color name="colorDarkText">#141414</color>
+    <color name="colorGreyText">#666666</color>
+    <color name="colorPrimaryDark">#141414</color>
+    <color name="colorOnboardingProgress">#4bc2a1</color>
+    <color name="colorAccentAlternative">#e2286b</color>
+    <color name="colorInactiveMenuItem">#adadad</color>
+    <color name="colorActiveMenuItem">#ffffff</color>
+    <color name="colorMyProfileButtonPressed">#f5f5f5</color>
+    <color name="colorMyProfileHeaderBackground">#f5f5f5</color>
+    <color name="colorNewConversationListTextColor">#070707</color>
+    <color name="colorToolbarBackground">#eee6ef</color>
+    <color name="colorToolbarWebviewBackground">#F5F5F5</color>
+    <color name="colorHowToButtonBackground">#66000000</color>
+    <color name="colorHowToButtonPressed">#CC000000</color>
+    <color name="colorHowToButtonDisabled">#40FFFFFF</color>
+    <color name="colorGoButtonDisabled">#c2c2c2</color>
+    <color name="colorBottomSheetText">#8a000000</color>
+
+    <color name="colorUnseen">#e2286b</color>
+
+    <color name="message_mine">#e5dae7</color>
+    <color name="message_mine_pressed">#FFBABABA</color>
+    <color name="message_other">#ffffff</color>
+    <color name="message_other_pressed">#FFBABABA</color>
+
+    <color name="tabInactiveColor">#bdffffff</color>
+    <color name="transparent">#00000000</color>
+    <color name="colorTransparent40">#40000000</color>
+    <color name="colorBlackTransparent70">#B3000000</color>
+    <color name="menuBackground">#171717</color>
+    <color name="colorTransparent95">#F2000000</color>
+    <color name="imageLoadingBackground">#F2141414</color>
+    <color name="colorConversationTimestamp">#999999</color>
+    <color name="colorConversationBGSeen">#CCFFFFFF</color>
+    <color name="colorWhiteTransparent30">#4dffffff</color>
+    <color name="colorWhiteTransparent80">#CCFFFFFF</color>
+    <color name="colorAccentTransparent30">#4d009897</color>
+    <color name="maize_pressed">#ccf2bb65</color>
+    <color name="colorSliderActive">#45B2B2</color>
+
+    <color name="colorSettingsBackground">#f5f5f5</color>
+    <color name="colorMyProfileBackground">#f5f5f5</color>
+    <color name="dialogBtnAreaColor">#f5f5f5</color>
+    <color name="teal_blue">#02a7a6</color>
+    <color name="lightGrey">#f3f3f3</color>
+    <color name="purchase_view_background">#f3f5fa</color>
+
+    <!--	new colors, android V2 in zeplin-->
+    <color name="maize">#f2bb65</color>
+    <color name="pinkish_tan">#d7a48a</color>
+    <color name="light_peach">#fcd6c3</color>
+    <color name="pale_peach">#ffe4b9</color>
+    <color name="grape_purple_dark">#14001c</color>
+    <color name="grape_purple">#351542</color>
+    <color name="grape">#5f3b6e</color>
+    <color name="grape_purple_light">#8472a2</color>
+    <color name="wineberry">#711c50</color>
+    <color name="brickred">#b12a5b</color>
+    <color name="lipstick">#e2286b</color>
+    <color name="rose">#cf556c</color>
+    <color name="medium_pink">#ef76a1</color>
+    <color name="peach">#f6817c</color>
+    <color name="pig_pink_two">#e98397</color>
+    <color name="pig_pink">#f4adbb</color>
+    <color name="dark_blue_grey">#19224f</color>
+    <color name="facebook_blue">#4267b2</color>
+    <color name="dusk">#464f80</color>
+    <color name="teal_dark">#006969</color>
+    <color name="teal_darker">#005050</color>
+    <color name="teal_dark_night">#003636</color>
+    <color name="teal_darker_night">#001d1d</color>
+    <color name="teal">#008383</color>
+    <color name="teal_light">#54c9c8</color>
+    <color name="greeny_blue_two">#45b2b2</color>
+    <color name="green_blue">#00ad7b</color>
+    <color name="greeny_blue">#4bc2a1</color>
+    <color name="aqua">#400ed0ce</color>
+    <color name="greenish_beige">#c6da7b</color>
+    <color name="mossy_green">#71871e</color>
+    <color name="black">#070707</color>
+    <color name="warm_grey">#7a7a7a</color>
+    <color name="pinkish_grey">#c2c2c2</color>
+    <color name="ice_blue">#ecf0f5</color>
+    <color name="grey">#ebebeb</color>
+    <color name="concrete">#f5f5f5</color>
+    <color name="white">#ffffff</color>
 </resources>
+
+
+    <!--Transparency Hex codes-->
+    <!--100% — FF-->
+    <!--95% — F2-->
+    <!--90% — E6-->
+    <!--85% — D9-->
+    <!--80% — CC-->
+    <!--75% — BF-->
+    <!--70% — B3-->
+    <!--65% — A6-->
+    <!--60% — 99-->
+    <!--55% — 8C-->
+    <!--50% — 80-->
+    <!--45% — 73-->
+    <!--40% — 66-->
+    <!--35% — 59-->
+    <!--30% — 4D-->
+    <!--25% — 40-->
+    <!--20% — 33-->
+    <!--15% — 26-->
+    <!--10% — 1A-->
+    <!--5%  — 0D-->
+    <!--0% —  00-->

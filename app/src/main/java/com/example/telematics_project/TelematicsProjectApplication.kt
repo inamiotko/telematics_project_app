@@ -4,7 +4,7 @@ import android.app.Application
 import com.google.firebase.FirebaseApp
 
 class TelematicsProjectApplication : Application() {
-    companion object{
+    companion object {
         lateinit var context: TelematicsProjectApplication private set
     }
 
