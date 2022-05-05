@@ -46,15 +46,52 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/add_patient_image" />
 
+        <Spinner
+            android:id="@+id/add_patient_age"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toBottomOf="@id/add_patient_name" />
+        <Spinner
+            android:id="@+id/add_patient_sex"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toBottomOf="@id/add_patient_age" />
+
         <EditText
-            android:id="@+id/add_patient_description"
+            android:id="@+id/add_patient_illness"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:hint="@string/patient_description"
+            android:hint="@string/patient_illness"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/add_patient_name" />
+            app:layout_constraintTop_toBottomOf="@id/add_patient_sex"/>
+
+        <EditText
+            android:id="@+id/add_patient_symptoms"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:hint="@string/patient_symptoms"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_patient_illness"/>
+
+        <EditText
+            android:id="@+id/add_patient_add_info"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:hint="@string/patient_add_info"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_patient_symptoms"/>
 
         <Button
             android:layout_width="wrap_content"

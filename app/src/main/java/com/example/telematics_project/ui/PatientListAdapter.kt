@@ -14,18 +14,30 @@ class PatientListAdapter(private val dataSet: List<Patient>) :
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var patientNameTV: TextView? = null
-        var patientDescriptionTV: TextView? = null
+        var patientAgeTV: TextView? = null
+        var patientSexTV: TextView? = null
+        var patientConditions: TextView? = null
+        var patientSymptomsTV: TextView? = null
+        var patientAddInfoTV: TextView? = null
         var patientImageIV: ImageView? = null
 
         init {
             patientNameTV = itemView.findViewById(R.id.patient_name)
-            patientDescriptionTV = itemView.findViewById(R.id.patient_details)
+            patientAgeTV = itemView.findViewById(R.id.patient_age)
+            patientSexTV = itemView.findViewById(R.id.patient_sex)
+            patientConditions = itemView.findViewById(R.id.patient_conditions)
+            patientSymptomsTV = itemView.findViewById(R.id.patient_symptoms)
+            patientAddInfoTV = itemView.findViewById(R.id.patient_add_info)
             patientImageIV = itemView.findViewById(R.id.patient_image)
         }
 
         fun bind(patient: Patient) {
             patientNameTV?.text = patient.name
-            patientDescriptionTV?.text = patient.description
+            patientSexTV?.text = patient.sex
+            patientAgeTV?.text = patient.age.toString()
+            patientConditions?.text = patient.conditions
+            patientSymptomsTV?.text = patient.symptoms
+            patientAddInfoTV?.text = patient.add_info
         }
     }
 

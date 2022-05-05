@@ -7,7 +7,8 @@
     <string name="identify_patient">Zidetyfikuj pacjenta</string>
     <string name="add_patient_info">Dodaj dane pacjenta tutaj, uwzględniając imię nazwisko oraz zdjęcie zrobione z przodu</string>
     <string name="patient_name">Pełne imie pacjenta</string>
-    <string name="patient_description">Dodaj tutaj wszystkie informacje związane z pacjentem</string>
+    <string name="patient_illness">Znane schorzenia pacjenta</string>
+    <string name="patient_symptoms">Dodaj objawy pacjenta</string>
+    <string name="patient_add_info"> Dodaj dodatkowe informacje o pacjencie</string>
     <string name="add_button_text">Dodaj</string>
-
 </resources>

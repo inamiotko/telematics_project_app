@@ -11,9 +11,9 @@ class ListViewFragment : BaseFragment<FragmentListViewBinding>() {
     override fun getLayoutId(): Int = R.layout.fragment_list_view
 
     private val patientList = listOf(
-        Patient("1", "jan kowalski", "blabla", "imagepath"),
-        Patient("2", "jan kowalski 2", "blabla", "imagepath2"),
-        Patient("3", "jan kowalski 3", "blabla", "imagepath3")
+        Patient("1", "jan kowalski", 16,"F","blablabla","blabla","symptomsss", "imagepath"),
+        Patient("2", "jan kowalski 2", 26,"M","blablabla","blabla","symptomsss", "imagepath2"),
+        Patient("3", "jan kowalski 3", 90,"F","blablabla","blabla","symptomsss", "imagepath3")
     )
 
     private fun initialiseRecyclerView() {

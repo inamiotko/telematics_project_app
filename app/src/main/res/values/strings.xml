@@ -6,7 +6,9 @@
     <string name="identify_patient">Identify patient</string>
     <string name="add_patient_info">Add patient information here, those need to include full name and image taken from the front</string>
     <string name="patient_name">Patient full name</string>
-    <string name="patient_description">Add here any notes related to the patient</string>
+    <string name="patient_illness">Known conditions patient is diagnosed with</string>
+    <string name="patient_symptoms">Add patient\'s symptoms</string>
+    <string name="patient_add_info"> Add patient\'s any additional information</string>
     <string name="add_button_text">Add</string>
 
 </resources>

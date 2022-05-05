@@ -55,7 +55,43 @@
                 tools:text="John Smith" />
 
             <TextView
-                android:id="@+id/patient_details"
+                android:id="@+id/patient_age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:textSize="16sp"
+                tools:text="15" />
+
+            <TextView
+                android:id="@+id/patient_sex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:textSize="16sp"
+                tools:text="15" />
+
+            <TextView
+                android:id="@+id/patient_conditions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:textSize="16sp"
+                tools:text="15" />
+
+            <TextView
+                android:id="@+id/patient_symptoms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:textSize="16sp"
+                tools:text="15" />
+
+            <TextView
+                android:id="@+id/patient_add_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
