@@ -15,5 +15,13 @@
     <fragment
         android:id="@+id/listViewFragment"
         android:name="com.example.telematics_project.ui.ListViewFragment"
-        android:label="@string/list_of_patients" />
+        android:label="@string/list_of_patients" >
+        <action
+            android:id="@+id/action_listViewFragment_to_patientDetailsFragment"
+            app:destination="@id/patientDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/patientDetailsFragment"
+        android:name="com.example.telematics_project.ui.PatientDetailsFragment"
+        android:label="PatientDetailsFragment" />
 </navigation>

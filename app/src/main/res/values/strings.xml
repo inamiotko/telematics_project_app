@@ -10,5 +10,10 @@
     <string name="patient_symptoms">Add patient\'s symptoms</string>
     <string name="patient_add_info"> Add patient\'s any additional information</string>
     <string name="add_button_text">Add</string>
-
+    <string name="patient">Patient: %1$s</string>
+    <string name="age">Age: %1$s years</string>
+    <string name="sex">Sex: %1$s</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="other">Other</string>
 </resources>

@@ -7,11 +7,21 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import com.example.telematics_project.event.Event
+import com.example.telematics_project.event.EventObserver
+import com.example.telematics_project.viewmodel.SharedViewModel
 
-abstract class BaseFragment<VDB : ViewDataBinding> : Fragment() {
+abstract class BaseFragment<VDB : ViewDataBinding, VM: ViewModel> : Fragment() {
     protected lateinit var binding: VDB
+    protected val sharedViewModel: SharedViewModel by activityViewModels()
+    protected abstract val viewModel: VM
 
     abstract fun getLayoutId(): Int
+
+    abstract fun initViewModel(viewModel: VM)
 
     abstract fun initViews()
 
@@ -26,5 +36,14 @@ abstract class BaseFragment<VDB : ViewDataBinding> : Fragment() {
     override fun onStart() {
         super.onStart()
         initViews()
+        initViewModel(viewModel)
+    }
+
+    fun <T> LiveData<T>.observe(observe: ((value: T) -> Unit)) {
+        this.observe(viewLifecycleOwner) { value -> observe(value) }
+    }
+
+    fun <T> LiveData<Event<T>>.observeEvent(observe: ((value: T) -> Unit)) {
+        this.observe(viewLifecycleOwner, EventObserver { value -> observe(value) })
     }
 }

@@ -1,5 +1,6 @@
 package com.example.telematics_project.ui
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,10 +8,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.telematics_project.R
+import com.example.telematics_project.TelematicsProjectApplication.Companion.context
 import com.example.telematics_project.model.Patient
 
-class PatientListAdapter(private val dataSet: List<Patient>) :
+class PatientListAdapter(private val dataSet: List<Patient>, private val clickListener: (patient: Patient) -> Unit?) :
     RecyclerView.Adapter<PatientListAdapter.ViewHolder>() {
+
+
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var patientNameTV: TextView? = null
@@ -25,19 +29,12 @@ class PatientListAdapter(private val dataSet: List<Patient>) :
             patientNameTV = itemView.findViewById(R.id.patient_name)
             patientAgeTV = itemView.findViewById(R.id.patient_age)
             patientSexTV = itemView.findViewById(R.id.patient_sex)
-            patientConditions = itemView.findViewById(R.id.patient_conditions)
-            patientSymptomsTV = itemView.findViewById(R.id.patient_symptoms)
-            patientAddInfoTV = itemView.findViewById(R.id.patient_add_info)
-            patientImageIV = itemView.findViewById(R.id.patient_image)
         }
 
         fun bind(patient: Patient) {
-            patientNameTV?.text = patient.name
-            patientSexTV?.text = patient.sex
-            patientAgeTV?.text = patient.age.toString()
-            patientConditions?.text = patient.conditions
-            patientSymptomsTV?.text = patient.symptoms
-            patientAddInfoTV?.text = patient.add_info
+            patientNameTV?.text = String.format(context.resources.getString(R.string.patient_name),patient.name)
+            patientSexTV?.text = String.format(context.resources.getString(R.string.sex),patient.sex)
+            patientAgeTV?.text = String.format(context.resources.getString(R.string.age),patient.age)
         }
     }
 
@@ -51,9 +48,9 @@ class PatientListAdapter(private val dataSet: List<Patient>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val patient: Patient = dataSet[position]
         holder.bind(patient)
-//        holder.itemView.setOnClickListener {
-//            clickListener.invoke(list[position])
-//        }
+        holder.itemView.setOnClickListener {
+            clickListener.invoke(dataSet[position])
+        }
     }
 
     override fun getItemCount(): Int = dataSet.size

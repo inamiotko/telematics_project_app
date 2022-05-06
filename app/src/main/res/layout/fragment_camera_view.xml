@@ -4,6 +4,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.example.telematics_project.viewmodel.CameraViewViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
