@@ -16,4 +16,5 @@
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="other">Other</string>
+    <string name="edit_patient">Edit patient data</string>
 </resources>

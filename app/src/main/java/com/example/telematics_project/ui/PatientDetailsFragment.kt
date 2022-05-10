@@ -11,7 +11,12 @@ class PatientDetailsFragment : BaseFragment<FragmentPatientDetailsBinding, Patie
     override fun getLayoutId(): Int = R.layout.fragment_patient_details
 
     override fun initViews() {
-//        TODO("Not yet implemented")
+        binding.patientName.text = "Patient full name"
+        binding.patientAge.text = "Age: 16"
+        binding.patientSex.text = "Sex: Female"
+        binding.patientConditions.text = "Known conditions: illness1, illness2"
+        binding.patientSymptoms.text = "Known symptoms: symptom1"
+        binding.patientAddInfo.text = "Additional info: -"
     }
 
     override fun initViewModel(viewModel: PatientDetailsViewModel) {
