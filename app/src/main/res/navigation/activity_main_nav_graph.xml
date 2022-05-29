@@ -7,7 +7,11 @@
     <fragment
         android:id="@+id/mainViewFragment"
         android:name="com.example.telematics_project.ui.MainViewFragment"
-        android:label="@string/add_patient" />
+        android:label="@string/add_patient" >
+        <action
+            android:id="@+id/action_mainViewFragment_to_listViewFragment"
+            app:destination="@id/listViewFragment" />
+    </fragment>
     <fragment
         android:id="@+id/cameraViewFragment"
         android:name="com.example.telematics_project.ui.CameraViewFragment"
@@ -19,9 +23,30 @@
         <action
             android:id="@+id/action_listViewFragment_to_patientDetailsFragment"
             app:destination="@id/patientDetailsFragment" />
+        <action
+            android:id="@+id/action_listViewFragment_to_mainViewFragment"
+            app:destination="@id/mainViewFragment" />
     </fragment>
     <fragment
         android:id="@+id/patientDetailsFragment"
         android:name="com.example.telematics_project.ui.PatientDetailsFragment"
-        android:label="PatientDetailsFragment" />
+        android:label="PatientDetailsFragment" >
+        <action
+            android:id="@+id/action_patientDetailsFragment_to_listViewFragment"
+            app:destination="@id/listViewFragment" />
+        <action
+            android:id="@+id/action_patientDetailsFragment_to_patientEditFragment"
+            app:destination="@id/patientEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/patientEditFragment"
+        android:name="com.example.telematics_project.ui.PatientEditFragment"
+        android:label="PatientEditFragment" >
+        <action
+            android:id="@+id/action_patientEditFragment_to_patientDetailsFragment"
+            app:destination="@id/patientDetailsFragment" />
+        <action
+            android:id="@+id/action_patientEditFragment_to_listViewFragment"
+            app:destination="@id/listViewFragment" />
+    </fragment>
 </navigation>

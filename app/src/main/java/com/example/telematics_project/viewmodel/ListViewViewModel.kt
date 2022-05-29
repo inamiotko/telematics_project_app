@@ -12,19 +12,15 @@ import org.koin.core.KoinComponent
 import org.koin.core.inject
 
 class ListViewViewModel: ViewModel(), KoinComponent {
-    val patientRepo: PatientRepository by inject()
-    val data: MutableLiveData<List<Patient>> = MutableLiveData(mutableListOf())
-
+    private val patientRepo: PatientRepository by inject()
+    val patients: MutableLiveData<List<Patient>> = MutableLiveData(mutableListOf())
 
     val patientClickedEvent = EventEmitter()
-//    val quizRepository: QuizRepository by inject()
 
     fun start() {
-//        quizRepository.getQuizzes(quizzes)
+        patientRepo.getPatients(patients)
     }
     fun patientClicked() {
         patientClickedEvent.emit()
-        patientRepo.getPatients(data)
-        Log.i("###", data.value.toString())
     }
 }

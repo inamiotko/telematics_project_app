@@ -33,10 +33,13 @@ abstract class BaseFragment<VDB : ViewDataBinding, VM: ViewModel> : Fragment() {
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
-        initViews()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initViewModel(viewModel)
+        super.onViewCreated(view, savedInstanceState)
+    }
+    override fun onStart() {
+        initViews()
+        super.onStart()
     }
 
     fun <T> LiveData<T>.observe(observe: ((value: T) -> Unit)) {

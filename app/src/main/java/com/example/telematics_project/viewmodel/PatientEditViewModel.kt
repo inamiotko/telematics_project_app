@@ -1,38 +1,29 @@
 package com.example.telematics_project.viewmodel
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.telematics_project.model.Patient
 import com.example.telematics_project.repository.PatientRepository
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
-class SharedViewModel : ViewModel(), KoinComponent {
+class PatientEditViewModel : ViewModel(), KoinComponent {
+    val patientRepository: PatientRepository by inject()
 
-    private var patientData: Patient? = null
-    private var pickedSexValue: String? = null
-    private val patientRepository: PatientRepository by inject()
+    var pickedSexValue: String? = null
 
-    fun setPatientDetails(patient: Patient) {
-        patientData = patient
-    }
-
-    fun getPatientDetails() = patientData
 
     fun onPickAnswerFemale() {
-        pickedSexValue= "Female"
-
+        pickedSexValue = "Female"
     }
 
     fun onPickAnswerMale() {
-        pickedSexValue= "Male"
+        pickedSexValue = "Male"
     }
 
     fun onPickAnswerOther() {
-        pickedSexValue= "Other"
+        pickedSexValue = "Other"
     }
 
-    fun addPatientRecord(
+    fun updatePatientRecord(
         patientId: String,
         name: String,
         age: String,
@@ -42,7 +33,7 @@ class SharedViewModel : ViewModel(), KoinComponent {
         imagePath: String
     ) {
         pickedSexValue?.let{
-            patientRepository.createPatient(
+            patientRepository.updatePatientData(
                 patientId,
                 name,
                 age,

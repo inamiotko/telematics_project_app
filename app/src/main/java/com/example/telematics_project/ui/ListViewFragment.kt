@@ -1,5 +1,7 @@
 package com.example.telematics_project.ui
 
+import android.util.Log
+import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,13 +16,8 @@ class ListViewFragment() : BaseFragment<FragmentListViewBinding, ListViewViewMod
     override val viewModel: ListViewViewModel by viewModels()
     override fun getLayoutId(): Int = R.layout.fragment_list_view
 
-    private val patientList = listOf(
-        Patient("jan kowalski", "16", "F", "blablabla", "blabla", "symptomsss", "imagepath"),
-        Patient("jan kowalski 2", "26", "M", "blablabla", "blabla", "symptomsss", "imagepath2"),
-        Patient( "jan kowalski 3", "90", "F", "blablabla", "blabla", "symptomsss", "imagepath3")
-    )
 
-    private fun initialiseRecyclerView() {
+    private fun initialiseRecyclerView(patientList: List<Patient>) {
         binding.recyclerviewPatientList.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = PatientListAdapter(patientList) { patient ->
@@ -31,18 +28,28 @@ class ListViewFragment() : BaseFragment<FragmentListViewBinding, ListViewViewMod
     }
 
     override fun initViews() {
-        initialiseRecyclerView()
+        overrideBackButton()
     }
 
     override fun initViewModel(viewModel: ListViewViewModel) {
         binding.viewModel = viewModel
+        viewModel.start()
         viewModel.apply{
             patientClickedEvent.observe {
                 findNavController().navigate(
                     ListViewFragmentDirections.actionListViewFragmentToPatientDetailsFragment()
                 )
             }
+            patients.observe {
+                initialiseRecyclerView(it)
+            }
 
+        }
+    }
+
+    private fun overrideBackButton() {
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().navigate(ListViewFragmentDirections.actionListViewFragmentToMainViewFragment())
         }
     }
 }

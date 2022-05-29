@@ -26,8 +26,8 @@ class MainActivity : AppCompatActivity() {
     private fun setupNavigation() {
         navController = findNavController(R.id.activity_main_navigation_host)
         binding.activityMainBottomNavigation.setupWithNavController(navController)
-        binding.activityMainBottomNavigation.background = null
         setupActionBarWithNavController(navController, configuration)
+        binding.activityMainBottomNavigation.background = null
     }
 
     override fun onSupportNavigateUp(): Boolean {

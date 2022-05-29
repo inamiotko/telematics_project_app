@@ -18,5 +18,7 @@
     <string name="female">Kobieta</string>
     <string name="other">Inna</string>
     <string name="edit_patient">Edytuj dane pacjenta</string>
+    <string name="update_patient_record">Zmień</string>
+    <string name="recognise">Wykonaj rozpoznawanie twarzy</string>
 
 </resources>

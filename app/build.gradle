@@ -71,6 +71,12 @@ dependencies {
     implementation "org.koin:koin-android-viewmodel:2.0.1"
     androidTestImplementation "org.koin:koin-test:2.0.1"
 
+
+    implementation 'com.github.bumptech.glide:glide:4.13.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.13.1'
+
     kapt 'com.android.databinding:compiler:3.1.4'
 
+    implementation 'com.google.firebase:firebase-storage:20.0.1'
+    implementation 'com.google.firebase:firebase-auth:21.0.5'
 }
