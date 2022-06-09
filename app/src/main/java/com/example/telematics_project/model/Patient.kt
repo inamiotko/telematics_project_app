@@ -8,6 +8,6 @@ data class Patient(
     var symptoms: String = "",
     var conditions: String = "",
     var add_info: String = "",
-    var imagePath: String = ""
+    var imagePath: String = "",
 ) {
 }
