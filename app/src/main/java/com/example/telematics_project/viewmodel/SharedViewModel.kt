@@ -1,5 +1,6 @@
 package com.example.telematics_project.viewmodel
 
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.telematics_project.model.Patient
@@ -39,7 +40,8 @@ class SharedViewModel : ViewModel(), KoinComponent {
         symptoms: String,
         conditions: String,
         add_info: String,
-        imagePath: String
+        imagePath: String,
+        imageVector: List<Float>
     ) {
         pickedSexValue?.let{
             patientRepository.createPatient(
@@ -50,7 +52,8 @@ class SharedViewModel : ViewModel(), KoinComponent {
                 symptoms,
                 conditions,
                 add_info,
-                imagePath
+                imagePath,
+                imageVector
             )
         }
     }

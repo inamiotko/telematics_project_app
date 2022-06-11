@@ -4,8 +4,11 @@ import android.app.Activity.RESULT_OK
 import android.app.ProgressDialog
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Environment
+import android.os.ParcelFileDescriptor
 import android.provider.MediaStore
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -16,9 +19,11 @@ import com.bumptech.glide.Glide
 import com.example.telematics_project.R
 import com.example.telematics_project.base.BaseFragment
 import com.example.telematics_project.databinding.FragmentMainViewBinding
+import com.example.telematics_project.tflite.FaceNetPredictor
 import com.example.telematics_project.viewmodel.SharedViewModel
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import org.koin.android.ext.android.inject
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -34,6 +39,9 @@ class MainViewFragment : BaseFragment<FragmentMainViewBinding, SharedViewModel>(
     var cameraPhotoFilePath: Uri? = null
     private var patientId: String = ""
     private var ref: StorageReference? = null
+    private var imageVector: MutableList<Float> = mutableListOf()
+
+    private val predictor: FaceNetPredictor by inject()
 
     override fun getLayoutId(): Int = R.layout.fragment_main_view
     override fun initViews() {
@@ -52,7 +60,6 @@ class MainViewFragment : BaseFragment<FragmentMainViewBinding, SharedViewModel>(
             addPatientInfo()
             findNavController().navigate(MainViewFragmentDirections.actionMainViewFragmentToListViewFragment())
         }
-        patientId = (0..100000).random().toString()
     }
 
     override fun initViewModel(viewModel: SharedViewModel) {
@@ -74,10 +81,24 @@ class MainViewFragment : BaseFragment<FragmentMainViewBinding, SharedViewModel>(
             patientSymptoms,
             patientConditions,
             patientAddInfo,
-            patientImagePath
+            patientImagePath,
+            imageVector
         )
     }
 
+    private fun uriToBitmap(selectedFileUri: Uri): Bitmap? {
+        try {
+            val parcelFileDescriptor: ParcelFileDescriptor? =
+                requireContext().contentResolver.openFileDescriptor(selectedFileUri, "r")
+            val fileDescriptor = parcelFileDescriptor?.fileDescriptor
+            val image = BitmapFactory.decodeFileDescriptor(fileDescriptor)
+            parcelFileDescriptor?.close()
+            return image
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        return null
+    }
 
     private fun dispatchTakePictureIntent() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
@@ -115,30 +136,36 @@ class MainViewFragment : BaseFragment<FragmentMainViewBinding, SharedViewModel>(
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             uploadImage(cameraPhotoFilePath)
             Glide.with(requireContext()).load(cameraPhotoFilePath).into(binding.addPatientImage)
+            cameraPhotoFilePath?.let {
+                val bitmap = uriToBitmap(it)
+                bitmap?.let {
+                    imageVector = predictor.getFaceEmbedding(bitmap).toMutableList()
+                }
+            }
         }
     }
 
     private fun uploadImage(filePath: Uri?) {
         patientId = (0..100000).random().toString()
         filePath?.let {
-            val progressDialog = ProgressDialog(requireContext())
-            progressDialog.setTitle("Uploading image to database...")
-            progressDialog.show()
+//            val progressDialog = ProgressDialog(requireContext())
+//            progressDialog.setTitle("Uploading image to database...")
+//            progressDialog.show()
             ref = storageReference.child("images/" + patientId + "/" + UUID.randomUUID() +".jpg")
             ref!!.putFile(it)
                 .addOnSuccessListener {
-                    progressDialog.dismiss()
+//                    progressDialog.dismiss()
                     Toast.makeText(requireContext(), "Uploaded", Toast.LENGTH_SHORT).show()
                 }
                 .addOnFailureListener { e ->
-                    progressDialog.dismiss()
+//                    progressDialog.dismiss()
                     Toast.makeText(requireContext(), "Failed " + e.message, Toast.LENGTH_SHORT)
                         .show()
                 }
                 .addOnProgressListener { taskSnapshot ->
                     val progress = 100.0 * taskSnapshot.bytesTransferred / taskSnapshot
                         .totalByteCount
-                    progressDialog.setMessage("Uploaded " + progress.toInt() + "%")
+//                    progressDialog.setMessage("Uploaded " + progress.toInt() + "%")
                 }
         }
     }

@@ -1,6 +1,7 @@
 package com.example.telematics_project.viewmodel
 
 import androidx.lifecycle.ViewModel
+import com.example.telematics_project.model.Patient
 import com.example.telematics_project.repository.PatientRepository
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -30,19 +31,23 @@ class PatientEditViewModel : ViewModel(), KoinComponent {
         symptoms: String,
         conditions: String,
         add_info: String,
-        imagePath: String
+        imagePath: String,
+        vector: List<Float>
     ) {
-        pickedSexValue?.let{
             patientRepository.updatePatientData(
                 patientId,
                 name,
                 age,
-                it,
+                pickedSexValue?: "Other",
                 symptoms,
                 conditions,
                 add_info,
-                imagePath
+                imagePath,
+                vector
             )
-        }
+    }
+
+    fun removePatient(patient: Patient) {
+        patientRepository.deletePatient(patient.id)
     }
 }

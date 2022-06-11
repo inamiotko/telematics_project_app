@@ -19,4 +19,5 @@
     <string name="edit_patient">Edit patient data</string>
     <string name="update_patient_record">update</string>
     <string name="recognise">Recognise patient</string>
+    <string name="remove_patient_record">Remove patient</string>
 </resources>

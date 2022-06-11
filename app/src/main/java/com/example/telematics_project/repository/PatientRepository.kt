@@ -1,6 +1,5 @@
 package com.example.telematics_project.repository
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.telematics_project.model.Patient
 import com.google.firebase.database.*
@@ -13,15 +12,15 @@ class PatientRepository() {
         quizReference.addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-
-                    liveData.value =
-                    dataSnapshot.children.mapNotNull {it.getValue(Patient::class.java) }.toList()
-                }
+                liveData.value =
+                    dataSnapshot.children.mapNotNull { it.getValue(Patient::class.java) }.toList()
+            }
 
             override fun onCancelled(error: DatabaseError) {
             }
         })
     }
+
     fun getPatient(patientId: String, liveData: MutableLiveData<Patient>) {
         val quizReference = database.child("patients/${patientId}")
         quizReference.addValueEventListener(object : ValueEventListener {
@@ -29,6 +28,7 @@ class PatientRepository() {
                 liveData.value =
                     dataSnapshot.getValue(Patient::class.java)
             }
+
             override fun onCancelled(error: DatabaseError) {
             }
         })
@@ -42,7 +42,8 @@ class PatientRepository() {
         symptoms: String,
         conditions: String,
         add_info: String,
-        imagePath: String
+        imagePath: String,
+        vector: List<Float>
     ) {
         lateinit var quizReference: DatabaseReference
         val patientRecord = Patient(
@@ -53,7 +54,8 @@ class PatientRepository() {
             symptoms,
             conditions,
             add_info,
-            imagePath
+            imagePath,
+            vector
         )
         patientId.let {
             quizReference = database.child("patients/${patientId}/")
@@ -61,14 +63,17 @@ class PatientRepository() {
         }
     }
 
-    fun createPatient(patientId: String,
-                      name: String,
-                      age: String,
-                      sex: String,
-                      symptoms: String,
-                      conditions: String,
-                      add_info: String,
-                      imagePath: String) {
+    fun createPatient(
+        patientId: String,
+        name: String,
+        age: String,
+        sex: String,
+        symptoms: String,
+        conditions: String,
+        add_info: String,
+        imagePath: String,
+        imageVector: List<Float>
+    ) {
         val patientRecord = mutableMapOf<String, Any>(
             "id" to patientId,
             "name" to name,
@@ -77,10 +82,16 @@ class PatientRepository() {
             "symptoms" to symptoms,
             "conditions" to conditions,
             "add_info" to add_info,
-            "imagePath" to imagePath
+            "imagePath" to imagePath,
+            "vector" to imageVector
         )
         val quizReference = database.child("patients/${patientId}")
         quizReference.updateChildren(patientRecord)
     }
 
+    fun deletePatient(patientId: String) {
+        val quizReference: DatabaseReference =
+            database.child("patients/${patientId}")
+        quizReference.removeValue()
+    }
 }

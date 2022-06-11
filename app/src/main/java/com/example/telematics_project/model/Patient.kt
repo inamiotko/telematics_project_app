@@ -9,5 +9,6 @@ data class Patient(
     var conditions: String = "",
     var add_info: String = "",
     var imagePath: String = "",
+    var vector: List<Float> = mutableListOf(0.0f, 0.0f)
 ) {
 }

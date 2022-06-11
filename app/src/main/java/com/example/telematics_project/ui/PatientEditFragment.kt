@@ -1,19 +1,32 @@
 package com.example.telematics_project.ui
 
+import android.net.Uri
 import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.telematics_project.R
+import com.example.telematics_project.TelematicsProjectApplication
 import com.example.telematics_project.base.BaseFragment
 import com.example.telematics_project.databinding.FragmentPatientEditBinding
 import com.example.telematics_project.model.Patient
 import com.example.telematics_project.viewmodel.PatientEditViewModel
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import java.util.*
 
 class PatientEditFragment : BaseFragment<FragmentPatientEditBinding, PatientEditViewModel>() {
     override val viewModel: PatientEditViewModel by viewModels()
     override fun getLayoutId(): Int = R.layout.fragment_patient_edit
     private val patientAgeList: List<Int> = (1..100).toList()
     private var spinnerPosition: Int = 0
+    private var ref: StorageReference? = null
+    var imagePath: String = ""
+    private val storage = FirebaseStorage.getInstance()
+    var storageReference: StorageReference = storage.reference
+    val patientVector: List<Float> = mutableListOf(0.0f)
 
     override fun initViewModel(viewModel: PatientEditViewModel) {
         binding.viewModel = viewModel
@@ -45,7 +58,29 @@ class PatientEditFragment : BaseFragment<FragmentPatientEditBinding, PatientEdit
                 findNavController()
                     .navigate(PatientEditFragmentDirections.actionPatientEditFragmentToListViewFragment())
             }
+            binding.removePatientRecord.setOnClickListener {
+                removePatient(patient)
+                findNavController()
+                    .navigate(PatientEditFragmentDirections.actionPatientEditFragmentToListViewFragment())
+            }
+            imagePath = patient.imagePath
+
         }
+        val ref = storage.getReferenceFromUrl(imagePath)
+        ref.downloadUrl.addOnSuccessListener(
+            OnSuccessListener<Uri> { uri ->
+                Glide.with(TelematicsProjectApplication.context)
+                    .load(uri.toString()).into(binding.patientImage)
+            }).addOnFailureListener(
+            OnFailureListener {
+                // Handle any errors
+            })
+    }
+
+    private fun removePatient(patient: Patient) {
+        viewModel.removePatient(patient)
+        ref = storageReference.child(patient.imagePath)
+        ref!!.delete()
     }
 
     private fun savePatientInfo(patient: Patient) {
@@ -55,7 +90,6 @@ class PatientEditFragment : BaseFragment<FragmentPatientEditBinding, PatientEdit
         val patientSymptoms = binding.editPatientSymptoms.text.toString()
         val patientConditions = binding.editPatientIllness.text.toString()
         val patientAddInfo = binding.editPatientAddInfo.text.toString()
-        val patientImagePath = binding.patientImage
 
         viewModel.updatePatientRecord(
             patientId,
@@ -64,7 +98,8 @@ class PatientEditFragment : BaseFragment<FragmentPatientEditBinding, PatientEdit
             patientSymptoms,
             patientConditions,
             patientAddInfo,
-            "path"
+            imagePath,
+            patientVector
         )
     }
 }

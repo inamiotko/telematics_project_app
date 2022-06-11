@@ -9,24 +9,18 @@ import android.net.Uri
 import android.os.Environment
 import android.os.ParcelFileDescriptor
 import android.provider.MediaStore
-import android.util.Log
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
 import com.example.telematics_project.R
 import com.example.telematics_project.base.BaseFragment
 import com.example.telematics_project.databinding.FragmentCameraViewBinding
+import com.example.telematics_project.model.Patient
+import com.example.telematics_project.tflite.FaceNetPredictor
 import com.example.telematics_project.viewmodel.CameraViewViewModel
-import org.tensorflow.lite.Interpreter
-import org.tensorflow.lite.support.common.FileUtil
-import org.tensorflow.lite.support.common.ops.NormalizeOp
-import org.tensorflow.lite.support.image.ImageProcessor
-import org.tensorflow.lite.support.image.TensorImage
-import org.tensorflow.lite.support.image.ops.ResizeOp
+import org.koin.android.ext.android.inject
 import java.io.File
 import java.io.IOException
-import java.nio.ByteBuffer
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -37,39 +31,16 @@ class CameraViewFragment : BaseFragment<FragmentCameraViewBinding, CameraViewVie
     override fun getLayoutId(): Int = R.layout.fragment_camera_view
     private var cameraPhotoFilePath: Bitmap? = null
     private val REQUEST_IMAGE_CAPTURE = 1
-    private var interpreter : Interpreter? = null
     private var photoURI: Uri? = null
+    private var listOfVectors: MutableList<Map<String, Any>> = mutableListOf()
+    private var patients: MutableList<Patient> = mutableListOf()
+    private var result: List<Float> = mutableListOf()
+    private val predictor: FaceNetPredictor by inject()
+    private var similarity: Double = 0.0
+    var listOfSimiliarities: MutableList<Double> = mutableListOf()
 
-    private val imageTensorProcessor = ImageProcessor.Builder()
-        .add( ResizeOp(160,160 , ResizeOp.ResizeMethod.BILINEAR ) )
-        .add( NormalizeOp( 127.5f , 127.5f ) )
-        .build()
-
-    private fun convertBitmapToBuffer( image : Bitmap) : ByteBuffer {
-        val imageTensor = imageTensorProcessor.process( TensorImage.fromBitmap( image ) )
-        return imageTensor.buffer
-    }
-
-    private fun getFaceEmbedding(image : Bitmap) : FloatArray {
-
-        return runFaceNet( convertBitmapToBuffer( image ) )[0]
-    }
-
-    // Run the FaceNet model.
-    private fun runFaceNet(inputs: Any): Array<FloatArray> {
-        val outputs = Array(1) { FloatArray(128 ) }
-        Log.i("###!!", "$outputs")
-        interpreter?.run(inputs, outputs)
-        return outputs
-    }
 
     override fun initViews() {
-        // Initialize TFLiteInterpreter
-        val interpreterOptions = Interpreter.Options().apply {
-            setNumThreads( 4 )
-        }
-        interpreter = Interpreter(FileUtil.loadMappedFile(requireContext(), "facenet.tflite") , interpreterOptions )
-
         binding.recognisePatientButton.setOnClickListener {
             dispatchTakePictureIntent()
         }
@@ -77,9 +48,17 @@ class CameraViewFragment : BaseFragment<FragmentCameraViewBinding, CameraViewVie
 
     override fun initViewModel(viewModel: CameraViewViewModel) {
         binding.viewModel = viewModel
+        viewModel.start()
+        viewModel.patients.observe { patient ->
+            patients.addAll(patient)
+            for (p in patient) {
+                listOfVectors.add(mapOf("patientId" to p.id, "imageVector" to p.vector))
+            }
+        }
     }
 
     private fun dispatchTakePictureIntent() {
+        listOfSimiliarities = mutableListOf()
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         val photoFile: File? = try {
             createImageFileInAppDir()
@@ -105,6 +84,7 @@ class CameraViewFragment : BaseFragment<FragmentCameraViewBinding, CameraViewVie
             Toast.makeText(requireContext(), "Something went wrong", Toast.LENGTH_SHORT).show()
         }
     }
+
     private fun uriToBitmap(selectedFileUri: Uri): Bitmap? {
         try {
             val parcelFileDescriptor: ParcelFileDescriptor? =
@@ -128,21 +108,33 @@ class CameraViewFragment : BaseFragment<FragmentCameraViewBinding, CameraViewVie
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
             val image = binding.img
-            photoURI?.let{
-                val bitmap = uriToBitmap(it)
+            photoURI?.let { uri ->
+                val bitmap = uriToBitmap(uri)
                 bitmap?.let {
-                    getFaceEmbedding(bitmap)
+                    var patientId = ""
+                    result = predictor.getFaceEmbedding(bitmap).toList()
+                    val listOfSimiliarities: MutableList<Double> = mutableListOf()
+                    val listOfIds: MutableList<String> = mutableListOf()
+
                     image.setImageBitmap(bitmap)
+                    for (vector in listOfVectors) {
+                        similarity =
+                            viewModel.cosineSimilarity(result, vector.values.last() as List<Float>)
+                        listOfSimiliarities.add(similarity)
+                        listOfIds.add(vector.values.first() as String)
+                    }
+                    similarity = listOfSimiliarities.maxOf { it }
+                    patientId =
+                        listOfIds[listOfSimiliarities.indexOf(listOfSimiliarities.maxOf { it })]
 
+                    for (patient in patients) {
+                        if (patient.id == patientId) {
+                            binding.result.text =
+                                " Rozpoznany pacjent to ${patient.name} z podobieństwem $similarity"
+                        }
+                    }
                 }
-                Log.i("###", "$bitmap")
             }
-
-            // todo recognise patient
-//                        cameraPhotoFilePath?.let { getFaceEmbedding(it) }
-
-
-
         }
     }
 }

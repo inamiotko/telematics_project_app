@@ -19,7 +19,7 @@ class PatientDetailsFragment :
     override val viewModel: PatientDetailsViewModel by viewModels()
     override fun getLayoutId(): Int = R.layout.fragment_patient_details
     var imagePath: String = ""
-    val storage = FirebaseStorage.getInstance()
+    private val storage = FirebaseStorage.getInstance()
 
     override fun initViews() {
         viewModel.start(sharedViewModel.getPatientDetails())
