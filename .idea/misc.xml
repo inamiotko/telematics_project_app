@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Users/Iga/AndroidStudioProjects/projekt_telematyka/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_add_image.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_camera.xml" value="0.12" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22864583333333333" />
         <entry key="app/src/main/res/layout/cell_patient_list.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_camera_view.xml" value="0.2526041666666667" />

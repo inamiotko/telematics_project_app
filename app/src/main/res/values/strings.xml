@@ -20,4 +20,5 @@
     <string name="update_patient_record">update</string>
     <string name="recognise">Recognise patient</string>
     <string name="remove_patient_record">Remove patient</string>
+    <string name="go_to_profile">Go to patient details</string>
 </resources>

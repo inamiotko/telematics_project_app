@@ -9,15 +9,20 @@ import android.net.Uri
 import android.os.Environment
 import android.os.ParcelFileDescriptor
 import android.provider.MediaStore
+import android.view.View
 import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.telematics_project.R
+import com.example.telematics_project.TelematicsProjectApplication
 import com.example.telematics_project.base.BaseFragment
 import com.example.telematics_project.databinding.FragmentCameraViewBinding
 import com.example.telematics_project.model.Patient
 import com.example.telematics_project.tflite.FaceNetPredictor
 import com.example.telematics_project.viewmodel.CameraViewViewModel
+import org.koin.android.ext.android.bind
 import org.koin.android.ext.android.inject
 import java.io.File
 import java.io.IOException
@@ -29,7 +34,6 @@ class CameraViewFragment : BaseFragment<FragmentCameraViewBinding, CameraViewVie
 
     override val viewModel: CameraViewViewModel by viewModels()
     override fun getLayoutId(): Int = R.layout.fragment_camera_view
-    private var cameraPhotoFilePath: Bitmap? = null
     private val REQUEST_IMAGE_CAPTURE = 1
     private var photoURI: Uri? = null
     private var listOfVectors: MutableList<Map<String, Any>> = mutableListOf()
@@ -116,7 +120,8 @@ class CameraViewFragment : BaseFragment<FragmentCameraViewBinding, CameraViewVie
                     val listOfSimiliarities: MutableList<Double> = mutableListOf()
                     val listOfIds: MutableList<String> = mutableListOf()
 
-                    image.setImageBitmap(bitmap)
+                    Glide.with(TelematicsProjectApplication.context)
+                        .load(uri.toString()).fitCenter().circleCrop().into(image)
                     for (vector in listOfVectors) {
                         similarity =
                             viewModel.cosineSimilarity(result, vector.values.last() as List<Float>)
@@ -130,11 +135,23 @@ class CameraViewFragment : BaseFragment<FragmentCameraViewBinding, CameraViewVie
                     for (patient in patients) {
                         if (patient.id == patientId) {
                             binding.result.text =
-                                " Rozpoznany pacjent to ${patient.name} z podobieństwem $similarity"
+                                " Rozpoznany pacjent to " + patient.name + " z podobieństwem " + similarity
+                            binding.result.visibility = View.VISIBLE
+                            binding.recognisePatientButton.visibility = View.GONE
+                            binding.goToProfileButton.visibility = View.VISIBLE
+                            binding.goToProfileButton.setOnClickListener {
+                                sharedViewModel.setPatientDetails(patient)
+                                navigateToPatientDetails()
+                            }
                         }
                     }
                 }
             }
         }
     }
+    private fun navigateToPatientDetails() {
+        findNavController()
+            .navigate(CameraViewFragmentDirections.actionCameraViewFragmentToPatientDetailsFragment())
+    }
+
 }

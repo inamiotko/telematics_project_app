@@ -70,7 +70,7 @@ class PatientEditFragment : BaseFragment<FragmentPatientEditBinding, PatientEdit
         ref.downloadUrl.addOnSuccessListener(
             OnSuccessListener<Uri> { uri ->
                 Glide.with(TelematicsProjectApplication.context)
-                    .load(uri.toString()).into(binding.patientImage)
+                    .load(uri.toString()).fitCenter().circleCrop().into(binding.patientImage)
             }).addOnFailureListener(
             OnFailureListener {
                 // Handle any errors

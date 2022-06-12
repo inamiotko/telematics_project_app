@@ -17,9 +17,11 @@ import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.storage.FirebaseStorage
 
 
-class PatientListAdapter(private val dataSet: List<Patient>, private val clickListener: (patient: Patient) -> Unit?) :
+class PatientListAdapter(
+    private val dataSet: List<Patient>,
+    private val clickListener: (patient: Patient) -> Unit?
+) :
     RecyclerView.Adapter<PatientListAdapter.ViewHolder>() {
-
 
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -27,7 +29,6 @@ class PatientListAdapter(private val dataSet: List<Patient>, private val clickLi
         var patientAgeTV: TextView? = null
         var patientSexTV: TextView? = null
         var patientImageView: ImageView? = null
-
 
 
         init {
@@ -38,24 +39,23 @@ class PatientListAdapter(private val dataSet: List<Patient>, private val clickLi
         }
 
         fun bind(patient: Patient) {
-            Log.i("###", patient.imagePath)
-            Log.i("###", patient.name)
-
             val storage = FirebaseStorage.getInstance()
             val ref = storage.getReferenceFromUrl(patient.imagePath)
             ref.downloadUrl.addOnSuccessListener(
                 OnSuccessListener<Uri> { uri ->
                     patientImageView?.let {
                         Glide.with(context)
-                            .load(uri.toString()).into(it)
+                            .load(uri.toString()).fitCenter().circleCrop().into(it)
                     }
                 }).addOnFailureListener(
                 OnFailureListener {
                     // Handle any errors
                 })
             patientNameTV?.text = String.format(patient.name)
-            patientSexTV?.text = String.format(context.resources.getString(R.string.sex),patient.sex)
-            patientAgeTV?.text = String.format(context.resources.getString(R.string.age),patient.age)
+            patientSexTV?.text =
+                String.format(context.resources.getString(R.string.sex), patient.sex)
+            patientAgeTV?.text =
+                String.format(context.resources.getString(R.string.age), patient.age)
         }
     }
 

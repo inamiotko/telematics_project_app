@@ -15,7 +15,14 @@
     <fragment
         android:id="@+id/cameraViewFragment"
         android:name="com.example.telematics_project.ui.CameraViewFragment"
-        android:label="@string/identify_patient" />
+        android:label="@string/identify_patient" >
+        <action
+            android:id="@+id/action_cameraViewFragment_to_patientDetailsFragment"
+            app:destination="@id/patientDetailsFragment" />
+        <action
+            android:id="@+id/action_cameraViewFragment_to_listViewFragment"
+            app:popUpTo="@id/listViewFragment" />
+    </fragment>
     <fragment
         android:id="@+id/listViewFragment"
         android:name="com.example.telematics_project.ui.ListViewFragment"
@@ -26,22 +33,34 @@
         <action
             android:id="@+id/action_listViewFragment_to_mainViewFragment"
             app:destination="@id/mainViewFragment" />
+        <action
+            android:id="@+id/action_listViewFragment_to_cameraViewFragment"
+            app:popUpTo="@id/cameraViewFragment" />
     </fragment>
     <fragment
         android:id="@+id/patientDetailsFragment"
         android:name="com.example.telematics_project.ui.PatientDetailsFragment"
-        android:label="PatientDetailsFragment" >
+        android:label="Patient Details" >
         <action
             android:id="@+id/action_patientDetailsFragment_to_listViewFragment"
             app:destination="@id/listViewFragment" />
         <action
             android:id="@+id/action_patientDetailsFragment_to_patientEditFragment"
             app:destination="@id/patientEditFragment" />
+        <action
+            android:id="@+id/action_patientDetailsFragment_to_cameraViewFragment"
+            app:destination="@id/cameraViewFragment" />
+        <action
+            android:id="@+id/action_patientDetailsFragment_to_cameraViewFragment2"
+            app:popUpTo="@id/cameraViewFragment" />
+        <action
+            android:id="@+id/action_patientDetailsFragment_to_listViewFragment2"
+            app:popUpTo="@id/listViewFragment" />
     </fragment>
     <fragment
         android:id="@+id/patientEditFragment"
         android:name="com.example.telematics_project.ui.PatientEditFragment"
-        android:label="PatientEditFragment" >
+        android:label="Edit Patient Data" >
         <action
             android:id="@+id/action_patientEditFragment_to_patientDetailsFragment"
             app:destination="@id/patientDetailsFragment" />
