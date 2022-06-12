@@ -26,7 +26,7 @@ class PatientEditFragment : BaseFragment<FragmentPatientEditBinding, PatientEdit
     var imagePath: String = ""
     private val storage = FirebaseStorage.getInstance()
     var storageReference: StorageReference = storage.reference
-    val patientVector: List<Float> = mutableListOf(0.0f)
+    var patientVector: List<Float> = mutableListOf(0.0f)
 
     override fun initViewModel(viewModel: PatientEditViewModel) {
         binding.viewModel = viewModel
@@ -64,6 +64,7 @@ class PatientEditFragment : BaseFragment<FragmentPatientEditBinding, PatientEdit
                     .navigate(PatientEditFragmentDirections.actionPatientEditFragmentToListViewFragment())
             }
             imagePath = patient.imagePath
+            patientVector = patient.vector
 
         }
         val ref = storage.getReferenceFromUrl(imagePath)
