@@ -50,9 +50,9 @@ class PatientEditFragment : BaseFragment<FragmentPatientEditBinding, PatientEdit
                 "Male" -> binding.editPatientSex.check(R.id.radio_male)
                 "Other" -> binding.editPatientSex.check(R.id.radio_other)
             }
+            binding.patientEditInfo.setText(patient.conditions)
             binding.editPatientIllness.setText(patient.conditions)
             binding.editPatientSymptoms.setText(patient.symptoms)
-            binding.editPatientAddInfo.setText(patient.add_info)
             binding.updatePatientRecord.setOnClickListener {
                 savePatientInfo(patient)
                 findNavController()
@@ -71,7 +71,7 @@ class PatientEditFragment : BaseFragment<FragmentPatientEditBinding, PatientEdit
         ref.downloadUrl.addOnSuccessListener(
             OnSuccessListener<Uri> { uri ->
                 Glide.with(TelematicsProjectApplication.context)
-                    .load(uri.toString()).fitCenter().circleCrop().into(binding.patientImage)
+                    .load(uri.toString()).fitCenter().circleCrop().into(binding.editPatientImage)
             }).addOnFailureListener(
             OnFailureListener {
                 // Handle any errors
@@ -90,12 +90,13 @@ class PatientEditFragment : BaseFragment<FragmentPatientEditBinding, PatientEdit
         val patientAge = binding.editPatientAge.selectedItem.toString()
         val patientSymptoms = binding.editPatientSymptoms.text.toString()
         val patientConditions = binding.editPatientIllness.text.toString()
-        val patientAddInfo = binding.editPatientAddInfo.text.toString()
+        val patientAddInfo = binding.patientEditInfo.text.toString()
 
         viewModel.updatePatientRecord(
             patientId,
             patientName,
             patientAge,
+            patient.sex,
             patientSymptoms,
             patientConditions,
             patientAddInfo,

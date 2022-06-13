@@ -25,11 +25,32 @@ class PatientDetailsFragment :
         viewModel.start(sharedViewModel.getPatientDetails())
         sharedViewModel.getPatientDetails()?.let {
             binding.patientName.text = it.name
-            binding.patientAge.text = it.age
-            binding.patientSex.text = it.sex
-            binding.patientConditions.text = it.conditions
-            binding.patientSymptoms.text = it.symptoms
-            binding.patientAddInfo.text = it.add_info
+            binding.patientAge.text = String.format(
+                TelematicsProjectApplication.context.resources.getString(R.string.age),
+                it.age
+            )
+            binding.patientSex.text = String.format(
+                TelematicsProjectApplication.context.resources.getString(R.string.sex),
+                it.sex
+            )
+            binding.patientConditions.text = String.format(
+                TelematicsProjectApplication.context.resources.getString(
+                    R.string.conditions,
+                    it.conditions
+                )
+            )
+            binding.patientSymptoms.text = String.format(
+                TelematicsProjectApplication.context.resources.getString(
+                    R.string.symptoms,
+                    it.symptoms
+                )
+            )
+            binding.patientAddInfo.text = String.format(
+                TelematicsProjectApplication.context.resources.getString(
+                    R.string.add_info,
+                    it.add_info
+                )
+            )
             imagePath = it.imagePath
         }
         val ref = storage.getReferenceFromUrl(imagePath)

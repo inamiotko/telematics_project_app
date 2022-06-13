@@ -20,5 +20,10 @@
     <string name="edit_patient">Edytuj dane pacjenta</string>
     <string name="update_patient_record">Zmień</string>
     <string name="recognise">Wykonaj rozpoznawanie twarzy</string>
-
+    <string name="conditions">Choroby współistniejące: %1$s</string>
+    <string name="symptoms">Objawy: %1$s</string>
+    <string name="add_info">Dodatkowe informacje: %1$s</string>
+    <string name="remove_patient_record">Usuń pacjenta z bazy danych</string>
+    <string name="go_to_profile">Idź do profilu pacjenta</string>
+    <string name="recognised_patient"> Rozpoznany pacjent to: %1$s \n z podobieństwem: %2$s" </string>
 </resources>

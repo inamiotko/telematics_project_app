@@ -26,8 +26,10 @@ import org.koin.android.ext.android.bind
 import org.koin.android.ext.android.inject
 import java.io.File
 import java.io.IOException
+import java.lang.Math.round
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.roundToInt
 
 
 class CameraViewFragment : BaseFragment<FragmentCameraViewBinding, CameraViewViewModel>() {
@@ -135,7 +137,10 @@ class CameraViewFragment : BaseFragment<FragmentCameraViewBinding, CameraViewVie
                     for (patient in patients) {
                         if (patient.id == patientId) {
                             binding.result.text =
-                                " Rozpoznany pacjent to " + patient.name + " z podobieństwem " + similarity
+                                String.format(
+                                    TelematicsProjectApplication.context.resources.getString(R.string.recognised_patient),
+                                    patient.name, similarity
+                                )
                             binding.result.visibility = View.VISIBLE
                             binding.recognisePatientButton.visibility = View.GONE
                             binding.goToProfileButton.visibility = View.VISIBLE

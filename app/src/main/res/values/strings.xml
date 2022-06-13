@@ -13,6 +13,9 @@
     <string name="patient">Patient: %1$s</string>
     <string name="age">Age: %1$s years</string>
     <string name="sex">Sex: %1$s</string>
+    <string name="conditions">Existing conditions: %1$s</string>
+    <string name="symptoms">Symptoms: %1$s</string>
+    <string name="add_info">Additional information: %1$s</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="other">Other</string>
@@ -21,4 +24,5 @@
     <string name="recognise">Recognise patient</string>
     <string name="remove_patient_record">Remove patient</string>
     <string name="go_to_profile">Go to patient details</string>
+    <string name="recognised_patient"> Recognised patient: %1$s \n with similarity: %2$s" </string>
 </resources>
